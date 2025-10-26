@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Cat Chat</title>
+    <style>
+        :root {
+            --background-color: #1a1a2e;
+            --container-bg: #16213e;
+            --user-bubble-bg: #0f3460;
+            --bot-bubble-bg: #533483;
+            --text-color: #e94560;
+            --input-bg: #1f4068;
+            --button-bg: #e94560;
+            --font-family: 'Courier New', Courier, monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        @keyframes pulseBorder {
+            0% {
+                border-color: #00bfff; /* Deep Sky Blue */
+                box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+            }
+            50% {
+                border-color: #32cd32; /* Lime Green */
+                box-shadow: 0 0 20px rgba(50, 205, 50, 0.4);
+            }
+            100% {
+                border-color: #00bfff; /* Deep Sky Blue */
+                box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+            }
+        }
+
+        @keyframes pulseEyes {
+            0% {
+                stroke: #00bfff;
+                stroke-width: 5;
+                filter: drop-shadow(0 0 10px #00bfff);
+            }
+            50% {
+                stroke: #32cd32;
+                stroke-width: 7;
+                filter: drop-shadow(0 0 15px #32cd32);
+            }
+            100% {
+                stroke: #00bfff;
+                stroke-width: 5;
+                filter: drop-shadow(0 0 10px #00bfff);
+            }
+        }
+
+        #root {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            background-color: var(--container-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid;
+            position: relative;
+            animation: pulseBorder 4s ease-in-out infinite;
+        }
+
+        .epic-cat-portrait {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 800px;
+            height: 95%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .cat-eye {
+            fill: none;
+            animation: pulseEyes 2.5s ease-in-out infinite;
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(22, 33, 62, 0.85);
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 20px;
+            max-width: 80%;
+            line-height: 1.5;
+            word-wrap: break-word;
+            color: #f0f0f0;
+        }
+
+        .user-message {
+            background-color: var(--user-bubble-bg);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message {
+            background-color: var(--bot-bubble-bg);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .loading-message {
+             font-style: italic;
+             color: #aaa;
+             align-self: flex-start;
+        }
+
+        .form-container {
+            position: relative;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 20px;
+            border: 2px solid var(--text-color);
+            background-color: var(--input-bg);
+            color: white;
+            font-family: var(--font-family);
+            font-size: 1rem;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--text-color);
+        }
+
+        .submit-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--button-bg);
+            color: var(--container-bg);
+            font-family: var(--font-family);
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover, .submit-button:disabled {
+            background-color: #ff718e;
+        }
+        .submit-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
